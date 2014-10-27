@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
+    <title>Uliweb Zone</title>
+    <!-- toplinks -->
+<script type="text/javascript" src="/static/jquery-1.7.2.min.js?ver=2"></script>
+<script type="text/javascript" src="/static/json2.js?ver=2"></script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="/static/html5.js?ver=2"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="/static/bootstrap.min.css?ver=2"/>
+<script type="text/javascript" src="/static/bootstrap.min.js?ver=2"></script>
+<link rel="stylesheet" type="text/css" href="/static/bootstrap_extend.css?ver=2"/>
+<link rel="stylesheet" type="text/css" href="/static/jquery-ui-1.8.16.custom.css?ver=2"/>
+<link rel="stylesheet" type="text/css" href="/static/jquery.pnotify.default.css?ver=2"/>
+<link rel="stylesheet" type="text/css" href="/static/jquery.pnotify.default.icons.css?ver=2"/>
+<script type="text/javascript" src="/static/jquery.pnotify.min.js?ver=2"></script>
+    
+    
+  
+<script>$.ajaxSetup({cache:false, traditional:true});</script></head>
+
+<body class="bootstrap-body">
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+$.extend($.pnotify.defaults, {"styling":"bootstrap"});
+var show_message = function(message, category){
+    $.pnotify({
+        //pnotify_title: 'Regular Notice',
+        pnotify_history: false,
+        pnotify_text: message,
+        pnotify_type: category || 'success',
+        pnotify_animation: 'fade',
+        pnotify_before_open: function(pnotify){
+           // Position this notice in the center of the screen.
+           pnotify.css({
+               "top": 1,
+               "left": ($(top.window).width() / 2) - (pnotify.width() / 2)
+           });
+        }
+    });
+}
+
+$(function(){
+    
+});
+</script>
+
+
+
+
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container-fluid">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+      <a class="brand" href="#"><img src="/static/uliweb_logo.gif"/></a>
+      <div class="nav-collapse">
+        
+<ul class="nav">
+    
+    <li class="active"><a href="/"><span>首页</span></a></li><li><a href="/forum"><span>论坛</span></a></li><li><a href="/tutorial"><span>教程</span></a></li><li><a href="/class"><span>课程</span></a></li><li><a href="/wiki"><span>Wiki</span></a></li><li><a href="/user/view"><span>管理</span></a></li><li><a href="/about"><span>关于</span></a></li>
+    
+</ul>
+
+      
+      </div><!--/.nav-collapse -->
+    </div>
+  </div>
+</div>
+
+    
+
+<div id="login-container" class="content container">
+    <div class="box span5 box_shadow content-outter">
+        <h2>注册</h2>
+        <div class="box-body">
+            <form action="/register_index" class="form-horizontal" method="POST">
+		{% csrf_token %}
+<!— - <input type="hidden" name="csrf_token" value="5c904829cc7e4dd9b7b11b8d2fef6c02">
+<input class="" id="field_next" name="next" type="hidden" value="/"></input>
+<div class="control-group" id="div_field_username">
+    <label class="control-label" for="field_username">用户名:<span class="field_required">*</span></label>
+    <div class="controls">
+    <input class="" id="field_username" name="username" type="text" value={{username}}></input>
+    {% if error3 %}
+        <p style=“color:red”>{{error3}}</p>
+    {% endif %}
+    <p class="help help-block"></p>
+</div>
+
+</div>
+
+<div class="control-group" id="div_field_password">
+    <label class="control-label" for="field_password">密码:<span class="field_required">*</span></label>
+    <div class="controls">
+    <input class="" id="field_password" name="password" type="password" value=""></input>
+    {% if error2 %}
+        <p style=“color:red”>{{error2}}</p>
+    {% endif %}
+    <p class="help help-block"></p>
+</div>
+
+</div>
+
+<div class="control-group" id="div_field_password1">
+    <label class="control-label" for="field_password1">确认密码:<span class="field_required">*</span></label>
+    <div class="controls">
+    <input class="" id="field_password1" name="password1" type="password" value=""></input>
+    {% if error1 %}
+        <p style=“color:red”>{{error1}}</p>
+    {% endif %}
+    <p class="help help-block"></p>
+</div>
+
+
+</div>
+
+
+<div class="form-actions">
+    <input class="btn btn-primary" type="submit" value="注册"></input>
+</div>
+
+</form>
+
+        </div>
+    </div>
+</div>
+
+
+
+<div class="container">
+  <footer class="row">
+  
+<p>
+Uliweb
+</p>
+
+  </footer>
+</div>
+      
+
+
+
+  </body>
+</html>

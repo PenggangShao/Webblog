@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html><head>
+    
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
+    <title>Uliweb Zone</title>
+    <!-- toplinks -->
+<script type="text/javascript" src=“/static/jquery-1.js"></script>
+<script type="text/javascript" src="/static/json2.js"></script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="/static/html5.js?ver=2"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="/static/bootstrap.css">
+<script type="text/javascript" src="/static/bootstrap.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/bootstrap_extend.css">
+<link rel="stylesheet" type="text/css" href="/static/jquery-ui-1.css">
+<link rel="stylesheet" type="text/css" href="/static/jquery.css">
+<link rel="stylesheet" type="text/css" href="/static/jquery_002.css">
+<script type="text/javascript" src="/static/jquery_005.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/jquery_003.css">
+<script type="text/javascript" src="/static/jquery.js"></script>
+<script type="text/javascript" src="/static/jquery_004.js"></script>
+<script type="text/javascript" src="/static/jquery_002.js"></script>
+<link rel="stylesheet" type="text/css" href=“/static/tip-twitter.css">
+<link rel="stylesheet" type="text/css" href="/static/tip-yellow.css">
+<link rel="stylesheet" type="text/css" href="/static/tip-yellowsimple.css">
+<script type="text/javascript" src="/static/jquery_003.js"></script>
+    
+    
+  
+<script>$.ajaxSetup({cache:false, traditional:true});</script></head>
+
+<body class="bootstrap-body">
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+$.extend($.pnotify.defaults, {"styling":"bootstrap"});
+var show_message = function(message, category){
+    $.pnotify({
+        //pnotify_title: 'Regular Notice',
+        pnotify_history: false,
+        pnotify_text: message,
+        pnotify_type: category || 'success',
+        pnotify_animation: 'fade',
+        pnotify_before_open: function(pnotify){
+           // Position this notice in the center of the screen.
+           pnotify.css({
+               "top": 1,
+               "left": ($(top.window).width() / 2) - (pnotify.width() / 2)
+           });
+        }
+    });
+}
+
+$(function(){
+    
+});
+</script>
+
+
+
+
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container-fluid">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+      <a class="brand" href="#"><img src="/static/uliweb_logo.gif"></a>
+      <div class="nav-collapse">
+        
+<ul class="nav">
+    
+    <li class="active"><a href="http://uliweb.cpython.org/"><span>首页</span></a></li><li><a href="http://uliweb.cpython.org/forum"><span>论坛</span></a></li><li><a href="http://uliweb.cpython.org/tutorial"><span>教程</span></a></li><li><a href="http://uliweb.cpython.org/class"><span>课程</span></a></li><li><a href="http://uliweb.cpython.org/wiki"><span>Wiki</span></a></li><li><a href="http://uliweb.cpython.org/user/view"><span>管理</span></a></li><li><a href="http://uliweb.cpython.org/about"><span>关于</span></a></li>
+    
+</ul>
+
+      
+      </div><!--/.nav-collapse -->
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+<script>
+
+    common_ajaxForm_success = function(options){
+        return function(r){
+            var opts = {
+                success:null,
+                message: show_message,
+                done:null,
+                error:null,
+                field_prefix:'div_field_',
+                message_type:'bootstrap'
+            };
+            if (typeof options === 'function'){
+                opts.success = options;
+            }else{
+                opts = $.extend(opts, options);
+            }
+            if (r.success){
+                opts.message(r.message||'');
+                if(opts.success) opts.success.call(this, r);
+                if(opts.done) opts.done.call(this, r);
+            }else{
+                if(opts.error) opts.error.call(this, r);
+                else{
+                    if(opts.message_type == 'bootstrap'){
+                        $('div.control-group').removeClass('error').find('.help-block.error').remove();
+                        $.each(r.data, function(key, value){
+                            var f, t;
+                            f = '#' + opts.field_prefix + key;
+                            t = $(f).addClass('error');
+                            t.find('.controls').append('<p class="help-block error">'+value+'</p>');
+                        });
+                    }else if(opts.message_type == 'tip'){
+                        var t = $(this);
+                        $('body').on('dialog2.beforeClose', t, function(e){
+                            t.find('input, select, textarea').poshytip('hide');
+                        });
+                        t.find('input, select, textarea').poshytip('hide');
+                        $.each(r.data, function(key, value){
+                            var el = t.find('input[name='+key+'],select[name='+key+'],textarea[name='+key+']');
+                            if (el.is(':hidden')){
+                                el = el.parent();
+                            }
+                            $(el).poshytip({
+                                className: 'tip-yellowsimple',
+                                content: value,
+                                showOn: 'none',
+                                alignTo: 'target',
+                                alignX: 'inner-left',
+                                offsetX: 0,
+                                offsetY: 5,
+                                closeButton: true
+                            });
+                            $(el).poshytip('show');
+                            $(el).focus(function(){
+                                $(this).poshytip('hide');
+                            });
+                        });
+                    }
+                }
+            }
+        };
+    }
+    
+    
+    $(function(){
+    
+        $(document).controls();
+        
+        $.fn.dialog2.helpers.defaults.alert = {title:'提醒', buttonLabelOk:'关闭'};
+        $.fn.dialog2.helpers.defaults.prompt = {title:'提示', buttonLabelOk:'确定', buttonLabelCancel:'取消'};
+        $.fn.dialog2.helpers.defaults.confirm = {title:'确认', buttonLabelYes:'是', buttonLabelNo:'否'};
+    });
+</script>
+
+<script type="text/javascript">
+	$(function() {
+		$("#login").dialog2({
+			showCloseHandle: false,
+			removeOnClose: false, 
+			autoOpen: true, 
+			closeOnEscape: false, 
+			closeOnOverlayClick: false
+		});
+
+	});
+</script>
+
+
+
+<div class="container">
+  <footer class="row">
+  
+<p>
+Uliweb
+</p>
+
+  </footer>
+</div>
+      
+
+
+
+  
+
+<div style="display: block;" class="modal-backdrop"></div><div style="display: block;" class="modal"><span tabindex="0" style="float: right; width: 0px;"></span><div class="modal-header loading"><a style="display: none;" href="#" class="close">×</a><span class="loader"></span><h3>登录</h3></div><div class="modal-body opened" id="login" style="">
+	<h1 style="display: none;">登录</h1>
+	<div>
+		<form action="" class="form-horizontal" method="POST">
+<input name="csrf_token" value="2c882a34985f404ea8d89cb616fbead5" type="hidden">
+<input class="" id="field_next" name="next" value="http://uliweb.cpython.org/forum" type="hidden">
+<div class="control-group" id="div_field_username">
+    <label class="control-label" for="field_username">用户名:<span class="field_required">*</span></label>
+    <div class="controls">
+    <input class="" id="field_username" name="username" type="text">
+    <p class="help help-block"></p>
+</div>
+
+</div>
+
+<div class="control-group" id="div_field_password">
+    <label class="control-label" for="field_password">口令:<span class="field_required">*</span></label>
+    <div class="controls">
+    <input class="" id="field_password" name="password" value="" type="password">
+    <p class="help help-block"></p>
+</div>
+
+</div>
+
+<div class="control-group" id="div_field_rememberme">
+    <label class="control-label" for="field_rememberme">记住我</label>
+    <div class="controls">
+    <input class="checkbox" id="field_rememberme" name="rememberme" type="checkbox">
+    <p class="help help-block"></p>
+</div>
+
+</div>
+
+
+<div style="position: absolute; left: -9999px; width: 1px; height: 1px;" class="form-actions">
+    <input class="btn btn-primary" value="登录" type="submit">
+</div>
+
+</form>
+
+	</div>
+</div><div class="modal-footer"><a href="#" class="btn btn-primary">登录</a></div><span tabindex="0" style="float: right; width: 0px;"></span></div></body></html>
